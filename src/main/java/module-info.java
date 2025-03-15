@@ -28,6 +28,8 @@ module com.deer.datasyncadmin {
     requires AnimateFX;
     requires org.kordamp.ikonli.feather;
     requires org.kordamp.jipsy.annotations;
+    uses org.kordamp.ikonli.IkonHandler;
+    provides org.kordamp.ikonli.IkonHandler with com.deer.data.sync.admin.icon.WIconIkonHandler;
 
     //
     opens com.deer.data.sync.admin.event to com.google.common;
@@ -36,4 +38,8 @@ module com.deer.datasyncadmin {
 
     opens com.deer.data.sync.admin to javafx.fxml;
     exports com.deer.data.sync.admin;
+
+
+
+
 }

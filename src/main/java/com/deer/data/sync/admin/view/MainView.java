@@ -11,10 +11,13 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.scene.layout.StackPane;
 import org.apache.commons.io.FileUtils;
+import org.kordamp.ikonli.IkonHandler;
+import org.kordamp.ikonli.javafx.IkonResolver;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.ServiceLoader;
 
 public class MainView extends StackPane {
 
@@ -37,7 +40,11 @@ public class MainView extends StackPane {
         //
         loadLoginView();
         //
-
+//        ClassLoader classLoader = IkonResolver.class.getClassLoader();
+//        ServiceLoader<IkonHandler> loader = ServiceLoader.load(IkonHandler.class,classLoader);
+//        for(IkonHandler ikonHandler:loader){
+//            System.out.println("icon handler: "+ikonHandler);
+//        }
 
 
         DefaultEventBus.getInstance().registerConsumer(EventType.LOGIN_SUCCESS_EVENT, event -> {
