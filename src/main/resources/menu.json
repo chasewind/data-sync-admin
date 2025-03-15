@@ -1,0 +1,130 @@
+[{
+  "name": "System",
+  "path": "/system",
+  "hidden": false,
+  "redirect": "noRedirect",
+  "component": "Layout",
+  "alwaysShow": true,
+  "meta": {
+    "title": "基础信息维护",
+    "icon": "system",
+    "noCache": false,
+    "link": null
+  },
+  "children": [{
+    "name": "User",
+    "path": "user",
+    "hidden": false,
+    "component": "system/user/index",
+    "meta": {
+      "title": "数据源管理",
+      "icon": "user",
+      "noCache": false,
+      "link": null
+    }
+  },
+    {
+      "name": "User",
+      "path": "user",
+      "hidden": false,
+      "component": "system/user/index",
+      "meta": {
+        "title": "数据表关系管理",
+        "icon": "user",
+        "noCache": false,
+        "link": null
+      }
+    }
+  ,
+    {
+      "name": "User",
+      "path": "user",
+      "hidden": false,
+      "component": "system/user/index",
+      "meta": {
+        "title": "数据表字段管理",
+        "icon": "user",
+        "noCache": false,
+        "link": null
+      }
+    }
+  ,
+    {
+      "name": "User",
+      "path": "user",
+      "hidden": false,
+      "component": "system/user/index",
+      "meta": {
+        "title": "ES索引方案管理",
+        "icon": "user",
+        "noCache": false,
+        "link": null
+      }
+    }
+  ,
+    {
+      "name": "User",
+      "path": "user",
+      "hidden": false,
+      "component": "system/user/index",
+      "meta": {
+        "title": "系统图标管理",
+        "icon": "user",
+        "noCache": false,
+        "link": null
+      }
+    }
+
+
+  ]
+}, {
+  "name": "Monitor",
+  "path": "/monitor",
+  "hidden": false,
+  "redirect": "noRedirect",
+  "component": "Layout",
+  "alwaysShow": true,
+  "meta": {
+    "title": "系统监控",
+    "icon": "monitor",
+    "noCache": false,
+    "link": null
+  },
+  "children": [{
+    "name": "Online",
+    "path": "online",
+    "hidden": false,
+    "component": "monitor/online/index",
+    "meta": {
+      "title": "在线用户",
+      "icon": "online",
+      "noCache": false,
+      "link": null
+    }
+  }]
+}, {
+  "name": "Tool",
+  "path": "/tool",
+  "hidden": false,
+  "redirect": "noRedirect",
+  "component": "Layout",
+  "alwaysShow": true,
+  "meta": {
+    "title": "系统工具",
+    "icon": "tool",
+    "noCache": false,
+    "link": null
+  },
+  "children": [{
+    "name": "Build",
+    "path": "build",
+    "hidden": false,
+    "component": "tool/build/index",
+    "meta": {
+      "title": "表单构建",
+      "icon": "build",
+      "noCache": false,
+      "link": null
+    }
+  }]
+}]

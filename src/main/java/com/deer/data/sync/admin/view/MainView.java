@@ -1,8 +1,20 @@
 package com.deer.data.sync.admin.view;
 
 import com.deer.data.sync.admin.event.DefaultEventBus;
+import com.deer.data.sync.admin.event.Event;
 import com.deer.data.sync.admin.event.EventType;
+import com.deer.data.sync.admin.model.MenuInfo;
+import com.deer.data.sync.admin.model.UserInfo;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.scene.layout.StackPane;
+import org.apache.commons.io.FileUtils;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
 
 public class MainView extends StackPane {
 
@@ -18,9 +30,15 @@ public class MainView extends StackPane {
         contentPane.setMaxWidth(Double.MAX_VALUE);
         this.getChildren().clear();
         this.getChildren().add(contentPane);
+
+        //
+
+
         //
         loadLoginView();
         //
+
+
 
         DefaultEventBus.getInstance().registerConsumer(EventType.LOGIN_SUCCESS_EVENT, event -> {
             //显示主体页面
@@ -31,6 +49,9 @@ public class MainView extends StackPane {
         DefaultEventBus.getInstance().registerConsumer(EventType.LOGIN_FAIL_EVENT, event -> {
             //如果登录超过3次，给出提醒
         });
+        DefaultEventBus.getInstance().registerConsumer(EventType.ADD_TAB_EVENT,event -> {
+
+        });
     }
 
     private void loadLoginView() {
@@ -38,4 +59,6 @@ public class MainView extends StackPane {
         LoginRegisterView loginRegisterView = new LoginRegisterView();
         contentPane.getChildren().add(loginRegisterView);
     }
+
+
 }

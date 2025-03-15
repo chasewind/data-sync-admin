@@ -1,17 +1,29 @@
 package com.deer.data.sync.admin.view;
 
+import com.deer.data.sync.admin.event.DefaultEventBus;
+import com.deer.data.sync.admin.event.Event;
+import com.deer.data.sync.admin.event.EventType;
+import com.deer.data.sync.admin.model.MenuInfo;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import org.apache.commons.io.FileUtils;
 import org.kordamp.ikonli.javafx.FontIcon;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
 
 public class HomePageView extends BorderPane {
 
@@ -114,10 +126,45 @@ public class HomePageView extends BorderPane {
 
 
         //
+        HBox centerBox = new HBox();
+//        BorderPane.setAlignment(centerBox,Pos.CENTER);
+
+        SideMenu sideMenu = new SideMenu();
+
+        TabPane tabPane = new TabPane();
+        centerBox.getChildren().add(sideMenu);
+        centerBox.getChildren().add(tabPane);
+
+
+        this.setCenter(centerBox);
+
+        loadRouters();
+
+        //
+        menuBtn.setOnAction(actionEvent -> {
+            Event<Boolean> event = new Event<>(EventType.EXPAND_MENU_EVENT, menuBtn.isSelected());
+            DefaultEventBus.getInstance().sendEvent(event);
+        });
+        //
         closeBtn.setOnAction(actionEvent -> {
             Platform.exit();
             System.exit(0);
         });
+
+
+    }
+    private void loadRouters() {
+        try {
+
+            String menuInfo = FileUtils.readFileToString(new File(getClass().getClassLoader().getResource("menu.json").getFile()), "utf-8");
+            List<MenuInfo> menuInfoList = new Gson().fromJson(menuInfo, new TypeToken<List<MenuInfo>>() {
+            }.getType());
+            Event<List<MenuInfo>> event = new Event<>(EventType.LOAD_MENU_SUCCESS_EVENT, menuInfoList);
+            DefaultEventBus.getInstance().sendEvent(event);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
 
     }

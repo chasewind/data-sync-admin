@@ -26,10 +26,12 @@ module com.deer.datasyncadmin {
     requires org.kordamp.ikonli.fontawesome;
     requires kaptcha;
     requires AnimateFX;
+    requires org.kordamp.ikonli.feather;
+    requires org.kordamp.jipsy.annotations;
 
     //
     opens com.deer.data.sync.admin.event to com.google.common;
-
+    opens com.deer.data.sync.admin.model to com.google.gson;
 
 
     opens com.deer.data.sync.admin to javafx.fxml;
