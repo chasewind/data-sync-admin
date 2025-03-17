@@ -27,6 +27,7 @@ import java.util.List;
 
 public class HomePageView extends BorderPane {
 
+    private    HBox centerBox = new HBox();
     public HomePageView(){
         this.setPrefHeight(511);
         this.setPrefWidth(833);
@@ -126,19 +127,16 @@ public class HomePageView extends BorderPane {
 
 
         //
-        HBox centerBox = new HBox();
-//        BorderPane.setAlignment(centerBox,Pos.CENTER);
-
-        SideMenu sideMenu = new SideMenu();
-
-        TabPane tabPane = new TabPane();
-        centerBox.getChildren().add(sideMenu);
-        centerBox.getChildren().add(tabPane);
+        BorderPane.setAlignment(centerBox,Pos.CENTER);
+        centerBox.setMaxWidth(Double.MAX_VALUE);
+        centerBox.setMaxHeight(Double.MAX_VALUE);
+        centerBox.setSpacing(5);
+        centerBox.setPadding(new Insets(5));
 
 
         this.setCenter(centerBox);
 
-        loadRouters();
+        loadAllMenu();
 
         //
         menuBtn.setOnAction(actionEvent -> {
@@ -153,12 +151,16 @@ public class HomePageView extends BorderPane {
 
 
     }
-    private void loadRouters() {
+    private void loadAllMenu() {
         try {
 
             String menuInfo = FileUtils.readFileToString(new File(getClass().getClassLoader().getResource("menu.json").getFile()), "utf-8");
             List<MenuInfo> menuInfoList = new Gson().fromJson(menuInfo, new TypeToken<List<MenuInfo>>() {
             }.getType());
+            //加载完菜单数据
+            SideMenu sideMenu = new SideMenu(menuInfoList);
+
+            centerBox.getChildren().add(sideMenu);
             Event<List<MenuInfo>> event = new Event<>(EventType.LOAD_MENU_SUCCESS_EVENT, menuInfoList);
             DefaultEventBus.getInstance().sendEvent(event);
 

@@ -43,17 +43,16 @@ public class SideMenu extends StackPane {
 
     private VBox menuBar;
     private TreeView<MenuInfo>treeView;
-    public SideMenu(){
-        DefaultEventBus.getInstance().registerConsumer(EventType.LOAD_MENU_SUCCESS_EVENT,event -> {
-            List<MenuInfo> menuInfoList = (List<MenuInfo>) event.getEventData();
-            createTreeItem(menuInfoList);
-        });
+    public SideMenu(List<MenuInfo> menuInfoList){
+        createView();
+        createTreeItem(menuInfoList);
+        //首次展开菜单
+        expansion(true);
         DefaultEventBus.getInstance().registerConsumer(EventType.EXPAND_MENU_EVENT,event -> {
           Boolean selected = (Boolean) event.getEventData();
             expansion(selected);
         });
 
-        createView();
     }
 
     private void createView() {
@@ -66,24 +65,24 @@ public class SideMenu extends StackPane {
         treeView.setShowRoot(false);
 
         treeView.getStyleClass().addAll(Tweaks.EDGE_TO_EDGE);
-        treeView.setCellFactory(new Callback<TreeView<MenuInfo>, TreeCell<MenuInfo>>() {
+        treeView.setCellFactory(new Callback<>() {
             @Override
             public TreeCell<MenuInfo> call(TreeView<MenuInfo> menuInfoTreeView) {
-                TreeCell treeCell = new TreeCell<MenuInfo>(){
+                TreeCell<MenuInfo> treeCell = new TreeCell<>() {
                     @Override
                     protected void updateItem(MenuInfo item, boolean empty) {
                         super.updateItem(item, empty);
-                        if(empty){
+                        if (empty) {
                             setText(null);
                             setGraphic(null);
-                        }else{
+                        } else {
                             Label titleLb = new Label(item.getMeta().getTitle());
                             String iconStr = item.getMeta().getIcon();
                             titleLb.setMaxWidth(Double.MAX_VALUE);
                             FontIcon titleIcon = FontIcon.of(Feather.CHEVRON_DOWN);
-                            titleLb.setGraphic(FontIcon.of(WIcon.findByDescription(iconStr),24, Color.CYAN));
+                            titleLb.setGraphic(FontIcon.of(WIcon.findByDescription(iconStr), 24, Color.CYAN));
                             titleLb.setGraphicTextGap(10);
-                            HBox box = new HBox(titleLb,titleIcon);
+                            HBox box = new HBox(titleLb, titleIcon);
                             HBox.setHgrow(titleLb, Priority.ALWAYS);
 
                             titleIcon.setVisible(!getTreeItem().isLeaf());
