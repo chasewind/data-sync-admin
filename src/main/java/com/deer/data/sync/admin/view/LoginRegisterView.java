@@ -7,12 +7,14 @@ import animatefx.animation.RotateOutUpRight;
 import animatefx.util.ParallelAnimationFX;
 import com.deer.data.sync.admin.event.DefaultEventBus;
 import com.deer.data.sync.admin.event.EventType;
+import com.deer.data.sync.admin.global.GlobalTools;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import org.kordamp.ikonli.Ikon;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.util.Objects;

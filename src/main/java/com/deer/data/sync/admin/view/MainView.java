@@ -40,11 +40,11 @@ public class MainView extends StackPane {
         //
         loadLoginView();
         //
-//        ClassLoader classLoader = IkonResolver.class.getClassLoader();
-//        ServiceLoader<IkonHandler> loader = ServiceLoader.load(IkonHandler.class,classLoader);
-//        for(IkonHandler ikonHandler:loader){
-//            System.out.println("icon handler: "+ikonHandler);
-//        }
+        ClassLoader classLoader = IkonResolver.class.getClassLoader();
+        ServiceLoader<IkonHandler> loader = ServiceLoader.load(IkonHandler.class,classLoader);
+        for(IkonHandler ikonHandler:loader){
+            System.out.println("icon handler: "+ikonHandler);
+        }
 
 
         DefaultEventBus.getInstance().registerConsumer(EventType.LOGIN_SUCCESS_EVENT, event -> {

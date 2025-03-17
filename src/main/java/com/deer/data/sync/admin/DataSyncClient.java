@@ -4,6 +4,7 @@ import atlantafx.base.theme.PrimerLight;
 import com.deer.data.sync.admin.event.DefaultEventBus;
 import com.deer.data.sync.admin.event.EventSubscriber;
 import com.deer.data.sync.admin.exception.DefaultExceptionHandler;
+import com.deer.data.sync.admin.global.GlobalTools;
 import com.deer.data.sync.admin.view.MainView;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -49,6 +50,8 @@ public class DataSyncClient extends Application {
         primaryStage.setHeight(768);
 
         Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
+
+        GlobalTools.initCustomIkonManager();
         Platform.runLater(() -> {
             primaryStage.show();
             primaryStage.requestFocus();
