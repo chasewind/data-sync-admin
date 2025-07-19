@@ -52,6 +52,7 @@ public class DataSyncClient extends Application {
         Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
 
         GlobalTools.initCustomIkonManager();
+        GlobalTools.registerMainStage(primaryStage);
         Platform.runLater(() -> {
             primaryStage.show();
             primaryStage.requestFocus();

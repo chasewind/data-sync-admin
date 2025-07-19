@@ -1,15 +1,22 @@
 package com.deer.data.sync.admin.view;
 
+import atlantafx.base.controls.ModalPane;
+import com.almasb.fxgl.cutscene.dialogue.DialogueGraph;
+import com.deer.data.sync.admin.dialogs.DataSourceAddUpdateDialog;
 import com.deer.data.sync.admin.event.DefaultEventBus;
 import com.deer.data.sync.admin.event.Event;
+import com.deer.data.sync.admin.global.GlobalTools;
 import com.deer.data.sync.admin.model.DataSourceInfo;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -109,6 +116,18 @@ public class DataSourceManageView extends VBox {
 
         dataSourceTableView.getColumns().addAll(idColumn,bizNameColumn,groupNameColumn,jdbcUrlColumn,usernameColumn,passwordColumn,portColumn,memoColumn,createdTimeColumn,updatedTimeColumn,actionColumn);
 
+
+        addButton.setOnAction(actionEvent -> {
+            //新增数据源
+            DataSourceAddUpdateDialog dialog = new DataSourceAddUpdateDialog();
+            Stage stage = new Stage();
+            stage.initOwner(GlobalTools.getMainStage());
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("配置数据源信息");
+            Scene scene = new Scene(dialog);
+            stage.setScene(scene);
+            stage.showAndWait();
+        });
         getChildren().addAll(addButton,dataSourceTableView);
     }
 

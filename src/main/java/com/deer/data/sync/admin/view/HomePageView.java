@@ -6,6 +6,7 @@ import com.deer.data.sync.admin.event.EventType;
 import com.deer.data.sync.admin.model.MenuInfo;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -15,6 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 import org.apache.commons.io.FileUtils;
 import org.kordamp.ikonli.javafx.FontIcon;
 
@@ -180,8 +182,13 @@ public class HomePageView extends BorderPane {
                 }
 
             }
-            if(tab!=null){
+            if(tab != null){
                 tabPane.getSelectionModel().select(tab);
+                //加入一个简单的效果
+                FadeTransition fadeTransition = new FadeTransition(Duration.millis(400), tab.getContent());
+                fadeTransition.setFromValue(0);
+                fadeTransition.setToValue(1);
+                fadeTransition.play();
             }
 
 
