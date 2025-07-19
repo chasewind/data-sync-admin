@@ -57,6 +57,13 @@ public class MainView extends StackPane {
             //如果登录超过3次，给出提醒
         });
         DefaultEventBus.getInstance().registerConsumer(EventType.ADD_TAB_EVENT,event -> {
+            //DataSourceManageView
+            MenuInfo menuInfo = (MenuInfo)event.getEventData();
+            if(menuInfo.getComponent().equals("DataSourceManageView")) {
+                DataSourceManageView dataSourceManageView = new DataSourceManageView();
+                contentPane.getChildren().add(dataSourceManageView);
+            }
+
 
         });
     }

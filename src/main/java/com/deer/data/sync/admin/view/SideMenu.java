@@ -108,6 +108,8 @@ public class SideMenu extends StackPane {
             if(newValue!=null && newValue.isLeaf()){
                 //TODO 发送事件添加tab
                 System.out.println(newValue);
+                Event<MenuInfo> event = new Event<>(EventType.ADD_TAB_EVENT, newValue.getValue());
+                DefaultEventBus.getInstance().sendEvent(event);
             }
 
         });
