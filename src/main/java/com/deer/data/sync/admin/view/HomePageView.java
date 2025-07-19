@@ -9,10 +9,7 @@ import com.google.gson.reflect.TypeToken;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.ContentDisplay;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -24,10 +21,17 @@ import org.kordamp.ikonli.javafx.FontIcon;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 public class HomePageView extends BorderPane {
 
     private    HBox centerBox = new HBox();
+
+    private TabPane tabPane = new TabPane();
+    private VBox leftCenterBox = new VBox();
+
+    private VBox rightCenterBox = new VBox();
+
     public HomePageView(){
         this.setPrefHeight(511);
         this.setPrefWidth(833);
@@ -133,6 +137,12 @@ public class HomePageView extends BorderPane {
         centerBox.setSpacing(5);
         centerBox.setPadding(new Insets(5));
 
+        //左侧菜单的容器,右侧主体容器
+        centerBox.getChildren().addAll(leftCenterBox,rightCenterBox);
+
+        //右侧主体容器
+        rightCenterBox.getChildren().add(tabPane);
+
 
         this.setCenter(centerBox);
 
@@ -153,9 +163,25 @@ public class HomePageView extends BorderPane {
         DefaultEventBus.getInstance().registerConsumer(EventType.ADD_TAB_EVENT,event -> {
             //DataSourceManageView
             MenuInfo menuInfo = (MenuInfo)event.getEventData();
-            if(menuInfo.getComponent().equals("DataSourceManageView")) {
-                DataSourceManageView dataSourceManageView = new DataSourceManageView();
-                centerBox.getChildren().add(dataSourceManageView);
+            String title = menuInfo.getMeta().getTitle();
+            Tab tab = null;
+            //查找是否已存在
+            Optional<Tab> firstMatch = tabPane.getTabs().stream().filter(t -> t.getText().equals(title)).findFirst();
+            if(firstMatch.isPresent()){
+                tab = firstMatch.get();
+            }else{
+
+                if(menuInfo.getComponent().equals("DataSourceManageView")) {
+                    DataSourceManageView dataSourceManageView = new DataSourceManageView();
+                    //不存在则创建
+                    tab = new Tab(title);
+                    tab.setContent(dataSourceManageView);
+                    tabPane.getTabs().add(tab);
+                }
+
+            }
+            if(tab!=null){
+                tabPane.getSelectionModel().select(tab);
             }
 
 
@@ -176,7 +202,7 @@ public class HomePageView extends BorderPane {
             //加载完菜单数据
             SideMenu sideMenu = new SideMenu(menuInfoList);
 
-            centerBox.getChildren().add(sideMenu);
+            leftCenterBox.getChildren().add(sideMenu);
             Event<List<MenuInfo>> event = new Event<>(EventType.LOAD_MENU_SUCCESS_EVENT, menuInfoList);
             DefaultEventBus.getInstance().sendEvent(event);
 
