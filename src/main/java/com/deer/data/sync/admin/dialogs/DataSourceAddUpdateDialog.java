@@ -1,6 +1,5 @@
 package com.deer.data.sync.admin.dialogs;
 
-import atlantafx.base.layout.ModalBox;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

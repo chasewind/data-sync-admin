@@ -180,6 +180,13 @@ public class HomePageView extends BorderPane {
                     tab.setContent(dataSourceManageView);
                     tabPane.getTabs().add(tab);
                 }
+                if(menuInfo.getComponent().equals("RouteAlgorithmManagerView")) {
+                    RouteAlgorithmManagerView routeAlgorithmManagerView = new RouteAlgorithmManagerView();
+                    //不存在则创建
+                    tab = new Tab(title);
+                    tab.setContent(routeAlgorithmManagerView);
+                    tabPane.getTabs().add(tab);
+                }
 
             }
             if(tab != null){

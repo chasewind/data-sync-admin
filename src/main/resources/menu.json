@@ -53,6 +53,19 @@
       "name": "User",
       "path": "user",
       "hidden": false,
+      "component": "RouteAlgorithmManagerView",
+      "meta": {
+        "title": "路由算法管理",
+        "icon": "user",
+        "noCache": false,
+        "link": null
+      }
+    }
+  ,
+    {
+      "name": "User",
+      "path": "user",
+      "hidden": false,
       "component": "system/user/index",
       "meta": {
         "title": "ES索引方案管理",
