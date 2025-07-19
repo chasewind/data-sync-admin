@@ -46,8 +46,6 @@ public class SideMenu extends StackPane {
     public SideMenu(List<MenuInfo> menuInfoList){
         createView();
         createTreeItem(menuInfoList);
-        //首次展开菜单
-        expansion(true);
         DefaultEventBus.getInstance().registerConsumer(EventType.EXPAND_MENU_EVENT,event -> {
           Boolean selected = (Boolean) event.getEventData();
             expansion(selected);
@@ -56,8 +54,8 @@ public class SideMenu extends StackPane {
     }
 
     private void createView() {
-        this.setMaxHeight(Double.MAX_VALUE);
-        this.setMaxWidth(Double.MAX_VALUE);
+        this.minWidthProperty().bind(this.prefWidthProperty());
+        this.maxWidthProperty().bind(this.prefWidthProperty());
         menuBar = new VBox();
         menuBar.setMaxWidth(Double.MAX_VALUE);
         menuBar.setAlignment(Pos.TOP_CENTER);
@@ -105,11 +103,20 @@ public class SideMenu extends StackPane {
 
             }
         });
+        treeView.getSelectionModel().selectedItemProperty().addListener((observable ,oldValue,newValue)->{
+
+            if(newValue!=null && newValue.isLeaf()){
+                //TODO 发送事件添加tab
+                System.out.println(newValue);
+            }
+
+        });
         setId("side-menu");
         getChildren().addAll(menuBar, treeView);
 
+
     }
-    private TreeItem<MenuInfo> createTreeItem(List<MenuInfo>  menuInfoList) {
+    private void createTreeItem(List<MenuInfo>  menuInfoList) {
         TreeItem<MenuInfo> root = new TreeItem<>();
         root.setExpanded(true);
 
@@ -133,14 +140,14 @@ public class SideMenu extends StackPane {
                 });
             }
 
-            Platform.runLater(() -> {
+//            Platform.runLater(() -> {
                 root.getChildren().add(child);
                 menuBar.getChildren().add(menuButton);
-            });
+//            });
 
         });
 
-        return root;
+        treeView.setRoot(root);
     }
 
     private void generateTree(TreeItem<MenuInfo> parent,   List<MenuInfo> children) {

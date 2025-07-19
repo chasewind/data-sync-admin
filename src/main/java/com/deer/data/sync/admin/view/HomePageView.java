@@ -67,15 +67,15 @@ public class HomePageView extends BorderPane {
         logoBtn.setStyle("-fx-text-fill: linear-gradient(to right, #e00db4, #0d6bde);");
         logoBtn.setTextFill(Color.web("#0d6bde"));
 
-        ToggleButton menuBtn = new ToggleButton();
-        menuBtn.setMnemonicParsing(false);
-        menuBtn.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-        FontIcon menuIcon = new FontIcon("fa-align-justify");
-        menuBtn.setGraphic(menuIcon);
+//        ToggleButton menuBtn = new ToggleButton();
+//        menuBtn.setMnemonicParsing(false);
+//        menuBtn.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+//        FontIcon menuIcon = new FontIcon("fa-align-justify");
+//        menuBtn.setGraphic(menuIcon);
 
 
         leftBox.getChildren().add(logoBtn);
-        leftBox.getChildren().add(menuBtn);
+//        leftBox.getChildren().add(menuBtn);
 
         header.getChildren().add(leftBox);
 
@@ -138,17 +138,22 @@ public class HomePageView extends BorderPane {
 
         loadAllMenu();
 
-        //
-        menuBtn.setOnAction(actionEvent -> {
-            Event<Boolean> event = new Event<>(EventType.EXPAND_MENU_EVENT, menuBtn.isSelected());
-            DefaultEventBus.getInstance().sendEvent(event);
-        });
+        //点击的时候也触发展示左侧菜单
+//        menuBtn.setOnAction(actionEvent -> {
+//            Event<Boolean> event = new Event<>(EventType.EXPAND_MENU_EVENT, menuBtn.isSelected());
+//            DefaultEventBus.getInstance().sendEvent(event);
+//        });
+
         //
         closeBtn.setOnAction(actionEvent -> {
             Platform.exit();
             System.exit(0);
         });
-
+        //触发展示左侧菜单
+        Platform.runLater(()->{
+            Event<Boolean> event = new Event<>(EventType.EXPAND_MENU_EVENT, true);
+            DefaultEventBus.getInstance().sendEvent(event);
+        });
 
     }
     private void loadAllMenu() {
