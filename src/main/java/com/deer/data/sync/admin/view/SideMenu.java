@@ -54,8 +54,8 @@ public class SideMenu extends StackPane {
     }
 
     private void createView() {
-        this.minWidthProperty().bind(this.prefWidthProperty());
-        this.maxWidthProperty().bind(this.prefWidthProperty());
+        this.setMinWidth(190);
+        this.setMaxWidth(210);
         menuBar = new VBox();
         menuBar.setMaxWidth(Double.MAX_VALUE);
         menuBar.setAlignment(Pos.TOP_CENTER);

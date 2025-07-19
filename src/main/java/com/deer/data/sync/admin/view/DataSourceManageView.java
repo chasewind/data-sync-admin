@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -16,7 +17,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * 数据源管理
  */
-public class DataSourceManageView extends StackPane {
+public class DataSourceManageView extends VBox {
 
     private Button addButton;
 
@@ -30,7 +31,8 @@ public class DataSourceManageView extends StackPane {
     }
 
     private void createView() {
-        this.setPadding(new Insets(10));
+        this.setPadding(new Insets(5));
+        this.setSpacing(12);
 
         addButton = new Button("添加数据源");
         dataSourceTableView = new TableView<>();

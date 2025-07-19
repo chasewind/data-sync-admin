@@ -149,6 +149,17 @@ public class HomePageView extends BorderPane {
             Platform.exit();
             System.exit(0);
         });
+
+        DefaultEventBus.getInstance().registerConsumer(EventType.ADD_TAB_EVENT,event -> {
+            //DataSourceManageView
+            MenuInfo menuInfo = (MenuInfo)event.getEventData();
+            if(menuInfo.getComponent().equals("DataSourceManageView")) {
+                DataSourceManageView dataSourceManageView = new DataSourceManageView();
+                centerBox.getChildren().add(dataSourceManageView);
+            }
+
+
+        });
         //触发展示左侧菜单
         Platform.runLater(()->{
             Event<Boolean> event = new Event<>(EventType.EXPAND_MENU_EVENT, true);
